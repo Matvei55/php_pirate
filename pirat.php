@@ -1,5 +1,4 @@
 <?php
-
 class Pirate {
     private string $name = '';
     
@@ -16,4 +15,4 @@ class Pirate {
     }
 }
 
-
+?>
