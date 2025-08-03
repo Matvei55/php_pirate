@@ -1,11 +1,11 @@
 <?php
-include_once '/home/matvei/prolects_php/box.php';
+
 
 class Ship  {
-    private $weight;
-    private $pirate;
-    private $boxes = [];
-    private $free_weight;
+    private  $weight=null;
+    private $pirate=null;
+    private array $boxes = [];
+    private  $free_weight=null;
 
     public function __construct(float $weight, Pirate $pirate) {
         if ($weight >= 60) {

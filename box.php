@@ -2,8 +2,8 @@
 
 class Box {
     private $weight= null;
-    private $content = null;
-    private $count= null;
+    private  $content = null;
+    private  $count= null;
 
     
     public function __construct(float $weight, $content, int $count) {
@@ -19,7 +19,7 @@ class Box {
         return $this->weight;
     } 
 
-    public function getContent() {
+    public function getContent(): string{
         return $this->content;
     }
     

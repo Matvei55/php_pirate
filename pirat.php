@@ -1,7 +1,7 @@
 <?php
 
 class Pirate {
-    private $name = '';
+    private string $name = '';
     
     public function __construct(string $name) {
         $this->name = $name;
