@@ -1,6 +1,8 @@
 <?php
-
-class Generator {
+require_once "./box.php";
+require_once "./ship.php";
+require_once "./pirat.php";
+class Generatorr {
   private int $shipCount =  4;
   private int $pirateCount = 4;
   private int $startFrom = 1;

@@ -1,5 +1,5 @@
 <?php
-
+require_once "./box.php";
 
 class Ship  {
     private  $weight=null;
