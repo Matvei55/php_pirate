@@ -3,50 +3,60 @@ require_once "./pirat.php";
 require_once "./ship.php";
 require_once "./box.php";
 require_once "./generator.php";
-class Resultt {
-    private array $boxCollection=[];
-    private array $shipCollection=[];
-    private array $boxesByPirateCollection=[];
 
-    public function __construct($boxCollection,$shipCollection){
-        $this->shipCollection=$shipCollection;
-        $this->boxCollection=$boxCollection;
+class Resultt 
+{
+    private array $boxCollection = [];
+    private array $shipCollection = [];
+    private array $boxesByPirateCollection = [];
+
+    public function __construct($boxCollection, $shipCollection)
+    {
+        $this->shipCollection = $shipCollection;
+        $this->boxCollection = $boxCollection;
         $this->setFillShips();
     }
 
-    public function getDisplayBoxCountByPirate() {
-        $resultate='';
+    public function getDisplayBoxCountByPirate(): void 
+    {
+        $resultate = '';
         foreach ($this->shipCollection as $shipKey => $ship) {
-            $namePirate=$ship->getPirate()->getName();
-            $countBox=$ship->getCount();
+            $namePirate = $ship->getPirate()->getName();
+            $countBox = $ship->getCount();
         }
-        printf ('пират %S взял %d сундуков',$namePirate, $countBox);
+        printf('пират %s взял %d сундуков', $namePirate, $countBox);
     }
 
-    public function setFillShips():void {
+    public function setFillShips(): void 
+    {
         foreach ($this->shipCollection as $shipKey => $ship) {
             $gold = 0;
             $curse = 0;
-            $empty  = 0;
-            foreach ($this->boxCollection as $boxKey => $box){
-                if ($ship->canAddBox($box)) {
-                    $ship->addBox($box);
+            $empty = 0;
+            foreach ($this->boxCollection as $boxKey => $box) {
+                if ($ship->setCanAddBox($box)) {
+                    $ship->setAddBox($box);
                     unset($this->boxCollection[$boxKey]);
-                    if ($box->getContent()== 'пусто'){
-                        $empty +=1;
-                    }elseif ($box->getContent()=='деньги'){
-                        $gold +=1;
-                    }elseif ($box->getContent()=='проклятье'){
-                        $curse +=1;
+                    if ($box->getContent() == 'пусто') {
+                        $empty += 1;
+                    } elseif ($box->getContent() == 'деньги') {
+                        $gold += 1;
+                    } elseif ($box->getContent() == 'проклятье') {
+                        $curse += 1;
                     }
                 }
-                $this->boxesByPirateCollection[$ship->getPirate()->getName()]= ['gold' => $gold , 'curse' => $curse, 'empty' => $empty, 'name' => $ship->getPirate()->getName()];
+                $this->boxesByPirateCollection[$ship->getPirate()->getName()] = [
+                    'gold' => $gold,
+                    'curse' => $curse,
+                    'empty' => $empty,
+                    'name' => $ship->getPirate()->getName()
+                ];
             }
-         
         }
     }
 
-    public function displayMaxGoldByPirate(){
+    public function getDisplayMaxGoldByPirate(): string 
+    {
         if (empty($this->boxesByPirateCollection)) {
             return "Нет данных о пиратах";
         }
@@ -54,10 +64,15 @@ class Resultt {
             return $b['gold'] <=> $a['gold'];
         });
         $topPirate = reset($this->boxesByPirateCollection);
-        return sprintf('Пират %s взял больше всего золота: %d', $topPirate['name'],$topPirate['gold']);
-        }
+        return sprintf(
+            'Пират %s взял больше всего золота: %d', 
+            $topPirate['name'],
+            $topPirate['gold']
+        );
+    }
 
-    public function displayMaxEmptyByPirate(): string {
+    public function getDisplayMaxEmptyByPirate(): string 
+    {
         if (empty($this->boxesByPirateCollection)) {
             return "Нет данных о пиратах";
         }
@@ -66,9 +81,14 @@ class Resultt {
         });
         $topPirate = reset($this->boxesByPirateCollection);
         return sprintf(
-            'Пират %s взял больше всего пустых сундуков: %d', $topPirate['name'],$topPirate['empty']);
+            'Пират %s взял больше всего пустых сундуков: %d', 
+            $topPirate['name'],
+            $topPirate['empty']
+        );
     }
-    public function displayMaxCurseByPirate(): string {
+
+    public function getDisplayMaxCurseByPirate(): string 
+    {
         if (empty($this->boxesByPirateCollection)) {
             return "Нет данных о пиратах";
         }
@@ -77,9 +97,14 @@ class Resultt {
         });
         $topPirate = reset($this->boxesByPirateCollection);
         return sprintf(
-            'Пират %s взял больше всего  сундуков c проклятьем: %d', $topPirate['name'],$topPirate['curse']);
+            'Пират %s взял больше всего сундуков c проклятьем: %d', 
+            $topPirate['name'],
+            $topPirate['curse']
+        );
     }
-    public function sortByKey(array $data, string $nestedKey, bool $reverse = false): array { //с sortbykey очень дипсик помог
+
+    public function sortByKey(array $data, string $nestedKey, bool $reverse = false): array 
+    { 
         $keys = array_keys($data);
         
         usort($keys, function($a, $b) use ($data, $nestedKey, $reverse) {
@@ -93,4 +118,3 @@ class Resultt {
         return $keys;
     }
 }
-?>

@@ -1,46 +1,51 @@
 <?php
 
-class Box {
-    private $weight= null;
-    private  $content = null;
-    private  $count= null;
+class Box
+{
+    private int $weight;
+    private string $content;
+    private int $count;
 
-    
-    public function __construct(float $weight, $content, int $count) {
-        if ($weight < 4 || $weight > 10){
-            throw new Exception("вес сундука должен быть от 4 до 10");
+    public function __construct(int $weight, string $content, int $count) 
+    {
+        if ($weight < 4 || $weight > 10) {
+            throw new Exception("Вес сундука должен быть от 4 до 10");
         }
         $this->weight = $weight;
         $this->content = $content;
         $this->count = $count;
     }
 
-    public function getWeight(): float {
+    public function getWeight(): int 
+    {
         return $this->weight;
-    } 
+    }
 
-    public function getContent(): string{
+    public function getContent(): string 
+    {
         return $this->content;
     }
     
-     public function getCount(): int {
+    public function getCount(): int 
+    {
         return $this->count;
     }
     
-    public function setWeight(float $weight):void {
+    public function setWeight(int $weight): void 
+    {
         if ($weight < 4 || $weight > 10) {
-            throw new Exception("вес должен быть от 4 до 10");
+            throw new Exception("Вес должен быть от 4 до 10");
         }
-        $this->weight= $weight;
+        $this->weight = $weight;
     }
 
-    public function setContent($content):void {
-        $this->content=$content;
+    public function setContent(string $content): void 
+    {
+        $this->content = $content;
     }
 
-    public function setCount(int $count):void {
+    public function setCount(int $count): void 
+    {
         $this->count = $count;
     }
 }
-
-?>
