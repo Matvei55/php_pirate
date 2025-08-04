@@ -78,12 +78,13 @@ class Generatorr
 
     public function getBoxContent(): string 
     {
-        if ($this->getBoxHasItem()) {
-        } elseif ($this->getBoxHasCash()) {
+       
+         if ($this->getBoxHasCash()) {
             return 'деньги';
         } elseif ($this->getBoxHasCurse()) {
             return 'проклятье';
         }
+
         return 'пусто';
     }
 
